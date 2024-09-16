@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:maceta_inteligente/screens/PantallaInicio/screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const GrowSmartApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GrowSmartApp extends StatelessWidget {
+  const GrowSmartApp({super.key});
 
   @override
   Widget build(BuildContext context) {

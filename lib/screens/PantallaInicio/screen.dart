@@ -56,7 +56,7 @@ class PantallaInicio extends StatelessWidget {
                 children: [
                   _buildSquare(
                     "Explorar Plantas",
-                    SvgPicture.asset('assets/svg/plant-flower.svg'),
+                    SvgPicture.asset('assets/svg/plant.svg'),
                     state,
                     context,
                   ),
