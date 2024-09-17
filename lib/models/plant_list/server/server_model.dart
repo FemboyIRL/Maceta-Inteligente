@@ -20,15 +20,15 @@ class PlantList {
 
   factory PlantList.fromJson(Map<String, dynamic> json) {
     return PlantList(
+      plantsData: (json["data"] as List)
+          .map((plantJson) => Plant.fromJson(plantJson))
+          .toList(),
       to: json["to"],
       porPagina: json["per_page"],
       paginaActual: json["current_page"],
       from: json["from"],
       ultimaPagina: json["last_page"],
       total: json["total"],
-      plantsData: (json["data"] as List)
-          .map((plantJson) => Plant.fromJson(plantJson))
-          .toList(),
     );
   }
 }

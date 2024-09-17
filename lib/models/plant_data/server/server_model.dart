@@ -2,7 +2,7 @@ class Plant {
   int id;
   String nombreComun;
   List<String> nombreCientifico;
-  List<String> otrosNombres;
+  List<String>? otrosNombres;
   String ciclo;
   String cantidadRiego;
   List<String> luzNecesaria;
