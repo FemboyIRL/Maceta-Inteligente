@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
@@ -21,10 +22,10 @@ class MainMenuState extends GetxController {
     MyFlowerpotModel(
       id: 1,
       userID: 1,
-      plantName: 'Aloe Vera', 
-      potName: 'Pot 1', 
-      location: 'Living Room', 
-      lastUpdated: DateTime.now(), 
+      plantName: 'Aloe Vera',
+      potName: 'Pot 1',
+      location: 'Living Room',
+      lastUpdated: DateTime.now(),
     ),
     MyFlowerpotModel(
       id: 2,
@@ -61,8 +62,10 @@ class MainMenuState extends GetxController {
     update();
   }
 
-  void showAddFlowerpotDialog(BuildContext context) {
-
+  void handleOnTapAdd(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => const AddFlowerpotDialog());
   }
 
   void _weatherWidget() async {

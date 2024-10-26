@@ -31,7 +31,7 @@ class MainMenuScreen extends StatelessWidget {
         itemCount: state.myFlowerPots.length + 1,
         itemBuilder: (context, index) {
           if (index == state.myFlowerPots.length) {
-            return LastCardAddWidget(name: "maceta", onTap: () {});
+            return LastCardAddWidget(name: "maceta", onTap: () => state.handleOnTapAdd(context));
           } else {
             final MyFlowerpotModel item = state.myFlowerPots[index];
             return MyFlowerpotWidget(
