@@ -63,9 +63,9 @@ class CatalogoPlantasPantalla extends StatelessWidget {
                 ),
               )),
               ValueListenableBuilder<String>(
-              valueListenable: state.searchValue,
-              builder: (context, value, child) =>
-                  _operationsWidget(context: context, state: state)),
+                  valueListenable: state.searchValue,
+                  builder: (context, value, child) =>
+                      _operationsWidget(context: context, state: state)),
             ],
           ),
         ),

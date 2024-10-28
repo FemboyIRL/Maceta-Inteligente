@@ -31,11 +31,11 @@ class LastCardAddWidget extends StatelessWidget {
               Text(
                 'Agregar $name',
                 style: const TextStyle(
-                  fontSize: 16, // Tamaño de la fuente
-                  fontWeight: FontWeight.bold, // Negrita
-                  color: Colors.black, // Color del texto
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold, 
+                  color: Colors.black,
                 ),
-                textAlign: TextAlign.center, // Centra el texto
+                textAlign: TextAlign.center, 
               ),
             ],
           ),

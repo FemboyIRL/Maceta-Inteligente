@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
+import 'package:maceta_inteligente/models/flower_status_enum.dart';
+import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
 import 'package:weather/weather.dart';
 
 class MainMenuState extends GetxController {
+  final searchValue = ValueNotifier<String>("");
   late WeatherFactory _wf;
   Weather? _weather;
   final place = ''.obs;
@@ -18,30 +21,33 @@ class MainMenuState extends GetxController {
   final lastDateRegistered = ''.obs;
   final weatherIcon = ''.obs;
 
-  List<MyFlowerpotModel> myFlowerPots = [
-    MyFlowerpotModel(
+  List<MyFlowerpotOperationalModel> myFlowerPots = [
+    MyFlowerpotOperationalModel(
       id: 1,
       userID: 1,
       plantName: 'Aloe Vera',
       potName: 'Pot 1',
       location: 'Living Room',
+      status: FlowerStatusEnum.good,
       lastUpdated: DateTime.now(),
     ),
-    MyFlowerpotModel(
+    MyFlowerpotOperationalModel(
       id: 2,
       userID: 1,
       plantName: 'Succulent',
       potName: 'Pot 2',
       location: 'Bedroom',
-      lastUpdated: DateTime.now().subtract(Duration(days: 1)),
+      status: FlowerStatusEnum.criticCondition,
+      lastUpdated: DateTime.now().subtract(const Duration(days: 1)),
     ),
-    MyFlowerpotModel(
+    MyFlowerpotOperationalModel(
       id: 3,
       userID: 2,
       plantName: 'Basil',
       potName: 'Pot 3',
       location: 'Kitchen',
-      lastUpdated: DateTime.now().subtract(Duration(days: 3)),
+      status: FlowerStatusEnum.inDanger,
+      lastUpdated: DateTime.now().subtract(const Duration(days: 3)),
     ),
   ];
 
@@ -97,9 +103,19 @@ class MainMenuState extends GetxController {
     }
   }
 
+  List<MyFlowerpotOperationalModel> filteredOperations() => myFlowerPots
+      .where((item) => <bool>[
+            item.plantName
+                .toLowerCase()
+                .contains(searchValue.value.toLowerCase()),
+            item.potName.contains(searchValue.value.toLowerCase()) == true
+          ].any((element) => element))
+      .toList();
+
+  void onSearchUpdated(final String newValue) => searchValue.value = newValue;
+
   @override
   void dispose() {
-    super.dispose();
     place.close();
     condition.close();
     humidity.close();
@@ -108,22 +124,7 @@ class MainMenuState extends GetxController {
     thermalSensation.close();
     lastDateRegistered.close();
     weatherIcon.close();
+    searchValue.dispose();
+    super.dispose();
   }
-}
-
-class MyFlowerpotModel {
-  final int id;
-  final int userID;
-  final String plantName;
-  final String potName;
-  final String location;
-  final DateTime lastUpdated;
-
-  const MyFlowerpotModel(
-      {required this.id,
-      required this.userID,
-      required this.plantName,
-      required this.potName,
-      required this.location,
-      required this.lastUpdated});
 }

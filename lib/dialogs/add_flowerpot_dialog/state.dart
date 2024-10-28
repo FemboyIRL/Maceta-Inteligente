@@ -17,7 +17,7 @@ class AddFlowerpotDialogState extends GetxController {
   }
 
   void handleClose(BuildContext context){
-    
+    Navigator.of(context).pop();
   }
 
 

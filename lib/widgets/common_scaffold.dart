@@ -8,8 +8,10 @@ import 'package:maceta_inteligente/widgets/social_media_widget.dart';
 class CommonScaffold extends StatelessWidget {
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final Future<void> Function()? onRefresh;
+  final void Function()? onTapFloatingButton;
   final List<Widget>? appbarActions;
   final List<Widget> sliversChildren;
+  final bool showFloatingButton;
   final Widget? endDrawer;
 
   const CommonScaffold(
@@ -18,6 +20,8 @@ class CommonScaffold extends StatelessWidget {
       this.onRefresh,
       this.appbarActions,
       required this.sliversChildren,
+      this.showFloatingButton = false,
+      this.onTapFloatingButton,
       this.endDrawer});
 
   static final socialMedia = <SocialMediaModel>[
@@ -83,14 +87,24 @@ class CommonScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        appBar: _appBar(),
-        endDrawer: endDrawer,
-        body: SafeArea(
-            child: Scrollbar(
-                child: (onRefresh != null)
-                    ? RefreshIndicator(
-                        onRefresh: onRefresh!, child: _pageContent())
-                    : _pageContent())));
+      key: scaffoldKey,
+      appBar: _appBar(),
+      endDrawer: endDrawer,
+      body: SafeArea(
+        child: Scrollbar(
+          child: (onRefresh != null)
+              ? RefreshIndicator(onRefresh: onRefresh!, child: _pageContent())
+              : _pageContent(),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: showFloatingButton
+          ? FloatingActionButton(
+              onPressed: () => onTapFloatingButton,
+              backgroundColor: Colors.transparent,
+              child: const Icon(Icons.settings,color: Colors.white,),
+            )
+          : const SizedBox(),
+    );
   }
 }

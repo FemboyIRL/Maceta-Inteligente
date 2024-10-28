@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
 import 'package:maceta_inteligente/screens/PantallaMenuPrincipal/state.dart';
+import 'package:maceta_inteligente/utilities/delegates/header_child_sliver_list.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/widgets/common_scaffold.dart';
 import 'package:maceta_inteligente/widgets/last_card_add_widget.dart';
@@ -9,6 +11,21 @@ import 'package:maceta_inteligente/widgets/weather_condition_widget.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});
+
+  Widget _persistentSearchBar(final MainMenuState state) {
+    return SliverPersistentHeader(
+        pinned: true,
+        floating: false,
+        delegate: HeaderChildSliverList(
+            maxSize: 60,
+            minSize: 60,
+            child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SearchBar(
+                    onChanged: state.onSearchUpdated,
+                    hintText: 'Buscar planta',
+                    trailing: const [Icon(Icons.search, size: 35)]))));
+  }
 
   Widget _weatherConditionsWidget(MainMenuState state) {
     return WeatherConditionWidget(
@@ -23,24 +40,48 @@ class MainMenuScreen extends StatelessWidget {
     );
   }
 
-  Widget _myFlowerpots(MainMenuState state) {
-    return SizedBox(
-      height: 270,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: state.myFlowerPots.length + 1,
-        itemBuilder: (context, index) {
-          if (index == state.myFlowerPots.length) {
-            return LastCardAddWidget(name: "maceta", onTap: () => state.handleOnTapAdd(context));
-          } else {
-            final MyFlowerpotModel item = state.myFlowerPots[index];
-            return MyFlowerpotWidget(
-              flowerPot: item,
-            );
-          }
-        },
-        separatorBuilder: (context, index) => const SizedBox(width: 10),
-      ),
+  Widget _flowerpotOverview(BuildContext context, MainMenuState state) {
+    final filteredList = state.filteredOperations();
+    print(filteredList);
+
+    if (filteredList.isEmpty) {
+      return SizedBox(
+        width: 150,
+        height: 270,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LastCardAddWidget(
+                name: 'maceta', onTap: () => state.handleOnTapAdd(context)),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 270,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.myFlowerPots.length + 1,
+            itemBuilder: (context, index) {
+              if (index == state.myFlowerPots.length) {
+                return LastCardAddWidget(
+                  name: "maceta",
+                  onTap: () => state.handleOnTapAdd(context),
+                );
+              } else {
+                final MyFlowerpotOperationalModel item =
+                    state.myFlowerPots[index];
+                return MyFlowerpotWidget(flowerPot: item);
+              }
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+          ),
+        ),
+      ],
     );
   }
 
@@ -50,6 +91,9 @@ class MainMenuScreen extends StatelessWidget {
         init: MainMenuState(),
         builder: (state) => CommonScaffold(
               sliversChildren: [
+                SliverPadding(
+                    padding: const EdgeInsets.all(10),
+                    sliver: _persistentSearchBar(state)),
                 const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
@@ -64,11 +108,10 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: _myFlowerpots(state),
-                  ),
+                ValueListenableBuilder<String>(
+                  valueListenable: state.searchValue,
+                  builder: (context, value, child) => SliverToBoxAdapter(
+                      child: _flowerpotOverview(context, state)),
                 ),
                 SliverToBoxAdapter(
                     child: Padding(
