@@ -62,6 +62,10 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              Text(
+                'Planta: ${flowerPot.plantName}',
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
               const SizedBox(height: 8),
               Text(
                 'Última actualización: ${flowerPot.lastUpdated}',
@@ -198,12 +202,17 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: const Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  ),
+                  leading: rec.type == "positive"
+                      ? const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        )
+                      : const Icon(
+                          Icons.error_sharp,
+                          color: Colors.red,
+                        ),
                   title: Text(
-                    rec,
+                    rec.recommendation,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),

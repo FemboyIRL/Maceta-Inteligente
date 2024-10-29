@@ -65,9 +65,9 @@ class MainMenuScreen extends StatelessWidget {
           height: 270,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: state.myFlowerPots.length + 1,
+            itemCount: filteredList.length + 1,
             itemBuilder: (context, index) {
-              if (index == state.myFlowerPots.length) {
+              if (index == filteredList.length) {
                 return LastCardAddWidget(
                   name: "maceta",
                   onTap: () => state.handleOnTapAdd(context),

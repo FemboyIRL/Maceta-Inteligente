@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/screens/PantallaCatalago/screen.dart';
 import 'package:maceta_inteligente/screens/PantallaLogin/screen.dart';
 import 'package:maceta_inteligente/screens/PantallaRegistro/screen.dart';
 
@@ -14,10 +13,6 @@ class EstadoCatalogo extends GetxController {
       case "Registrarse":
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
-        break;
-      case "Explorar Plantas":
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const CatalogoPlantasPantalla()));
         break;
     }
   }

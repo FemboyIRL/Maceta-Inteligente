@@ -1,3 +1,17 @@
+class Recomendation {
+  final String type;
+  final String recommendation;
+
+  Recomendation({required this.type, required this.recommendation});
+
+  factory Recomendation.fromMap(Map<String, dynamic> map) {
+    return Recomendation(
+      type: map['type'] as String,
+      recommendation: map['recommendation'] as String,
+    );
+  }
+}
+
 class PlantConfigs {
   final int id;
   final String plantName;
@@ -7,7 +21,7 @@ class PlantConfigs {
   final double minHumidity;
   final double maxLightLevel;
   final double minLightLevel;
-  final List<String> plantCares;
+  final List<Recomendation> plantCares;
 
   PlantConfigs({
     required this.id,
@@ -31,7 +45,11 @@ class PlantConfigs {
       minHumidity: (map['minimum_humidity'] as num).toDouble(),
       maxLightLevel: (map['maximum_light_level'] as num).toDouble(),
       minLightLevel: (map['minimum_light_level'] as num).toDouble(),
-      plantCares: List<String>.from(map['plant_cares'] as List<String>),
+      plantCares: List<Recomendation>.from(
+        (map['plant_cares'] as List<dynamic>).map(
+          (care) => Recomendation.fromMap(care as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 }
