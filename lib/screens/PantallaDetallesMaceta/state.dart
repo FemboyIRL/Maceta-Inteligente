@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
 import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/screens/PantallaGraficasSensores/screen.dart';
 
 class FlowerpotDetailsState extends GetxController {
   late final MyFlowerpotOperationalModel flowerPot;
@@ -44,5 +45,10 @@ class FlowerpotDetailsState extends GetxController {
 
   void onTapFloatingButton(BuildContext context) {
     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlowerpotConfigurations(flowerPot: flowerPot)));
+  }
+
+  void onTapSensors(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SensorDataScreen(flowerPot: flowerPot)));
   }
 }

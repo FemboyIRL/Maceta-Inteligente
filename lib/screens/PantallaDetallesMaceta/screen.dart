@@ -118,59 +118,61 @@ class FlowerpotDetailsScreen extends StatelessWidget {
   Widget _sensorCards(BuildContext context, FlowerpotDetailsState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Sensores",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () => state.onTapSensors(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Sensores",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _sensorCard(
-                icon: Icons.water_drop,
-                label: "Humedad",
-                value: "${state.lastRegisteredSensors.humidity}%",
-                color: Colors.blue,
-              ),
-              _sensorCard(
-                icon: Icons.thermostat,
-                label: "Temperatura",
-                value: "${state.lastRegisteredSensors.temperature}°C",
-                color: Colors.red,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _sensorCard(
-                icon: Icons.light_mode,
-                label: "Luz",
-                value: "${state.lastRegisteredSensors.lightLevel} lux",
-                color: Colors.amber,
-              ),
-              _sensorCard(
-                icon: Icons.opacity,
-                label: "Agua",
-                value: "${state.lastRegisteredSensors.waterLevel}%",
-                color: Colors.blueAccent,
-              ),
-            ],
-          ),
-        ],
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _sensorCard(
+                  icon: Icons.water_drop,
+                  label: "Humedad",
+                  value: "${state.lastRegisteredSensors.humidity}%",
+                  color: Colors.blue,
+                ),
+                _sensorCard(
+                  icon: Icons.thermostat,
+                  label: "Temperatura",
+                  value: "${state.lastRegisteredSensors.temperature}°C",
+                  color: Colors.red,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _sensorCard(
+                  icon: Icons.light_mode,
+                  label: "Luz",
+                  value: "${state.lastRegisteredSensors.lightLevel} lux",
+                  color: Colors.amber,
+                ),
+                _sensorCard(
+                  icon: Icons.opacity,
+                  label: "Agua",
+                  value: "${state.lastRegisteredSensors.waterLevel}%",
+                  color: Colors.blueAccent,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _recommendations(BuildContext context, FlowerpotDetailsState state) {
-    // Verifica si hay cuidados para mostrar
     if (state.plant.plantCares.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(16.0),
