@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
-import 'package:maceta_inteligente/screens/PantallaDetallesMaceta/screen.dart';
+import 'package:maceta_inteligente/screens/FlowerPotScreen/screen.dart';
 import 'package:maceta_inteligente/utilities/assets/assets_resources.dart';
 
 class MyFlowerpotWidget extends StatelessWidget {
   final MyFlowerpotOperationalModel flowerPot;
-
 
   const MyFlowerpotWidget({super.key, required this.flowerPot});
 
@@ -17,7 +16,10 @@ class MyFlowerpotWidget extends StatelessWidget {
       child: SizedBox(
         width: 150,
         child: InkWell(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlowerpotDetailsScreen(flowerPot: flowerPot,))),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => FlowerpotScreen(
+                    flowerPot: flowerPot,
+                  ))),
           child: Card(
             color: Colors.white,
             elevation: 4,

@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
-import 'package:maceta_inteligente/screens/PantallaDetallesMaceta/state.dart';
-import 'package:maceta_inteligente/widgets/common_scaffold.dart';
+import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/state.dart';
 
 class FlowerpotDetailsScreen extends StatelessWidget {
   final MyFlowerpotOperationalModel flowerPot;
-
   const FlowerpotDetailsScreen({super.key, required this.flowerPot});
 
-  Widget _potCard(BuildContext context, FlowerpotDetailsState state) {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<FlowerPotDetailsState>(
+        init: FlowerPotDetailsState(flowerPot: flowerPot),
+        builder: (state) => Scaffold(
+              body: Column(
+                children: [
+                  _potCard(context, state),
+                  _sensorCards(context, state),
+                  _recommendations(context, state),
+                ],
+              ),
+            ));
+  }
+
+  // Widget para la tarjeta de la maceta
+  Widget _potCard(BuildContext context, FlowerPotDetailsState state) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Card(
@@ -26,7 +40,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    flowerPot.potName,
+                    state.flowerPot.potName,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -36,7 +50,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      flowerPot.status.title,
+                      state.flowerPot.status.title,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -44,7 +58,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
-                      color: flowerPot.status.color.withOpacity(0.8),
+                      color: state.flowerPot.status.color.withOpacity(0.8),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Colors.black,
@@ -63,12 +77,12 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                 ],
               ),
               Text(
-                'Planta: ${flowerPot.plantName}',
+                'Planta: ${state.flowerPot.plantName}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 8),
               Text(
-                'Última actualización: ${flowerPot.lastUpdated}',
+                'Última actualización: ${state.flowerPot.lastUpdated}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 16),
@@ -80,6 +94,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
     );
   }
 
+  // Widget para mostrar las tarjetas de los sensores
   Widget _sensorCard(
       {required IconData icon,
       required String label,
@@ -115,7 +130,8 @@ class FlowerpotDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _sensorCards(BuildContext context, FlowerpotDetailsState state) {
+  // Widget que construye las tarjetas de los sensores
+  Widget _sensorCards(BuildContext context, FlowerPotDetailsState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: InkWell(
@@ -172,7 +188,8 @@ class FlowerpotDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _recommendations(BuildContext context, FlowerpotDetailsState state) {
+  // Widget para las recomendaciones
+  Widget _recommendations(BuildContext context, FlowerPotDetailsState state) {
     if (state.plant.plantCares.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(16.0),
@@ -219,24 +236,6 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                   ),
                 ),
               )),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<FlowerpotDetailsState>(
-      init: FlowerpotDetailsState(flowerPot: flowerPot),
-      builder: (state) => CommonScaffold(
-        showFloatingButton: true,
-        onTapFloatingButton: () => state.onTapFloatingButton(context),
-        sliversChildren: [
-          SliverToBoxAdapter(child: _potCard(context, state)),
-          SliverToBoxAdapter(
-            child: _sensorCards(context, state),
-          ),
-          SliverToBoxAdapter(child: _recommendations(context, state))
         ],
       ),
     );

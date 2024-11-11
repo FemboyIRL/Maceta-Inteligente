@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
 import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
 import 'package:maceta_inteligente/screens/PantallaGraficasSensores/screen.dart';
 
-class FlowerpotDetailsState extends GetxController {
+class FlowerPotDetailsState extends GetxController {
   late final MyFlowerpotOperationalModel flowerPot;
-  FlowerpotDetailsState({required this.flowerPot});
-
-  //dependiendo de la maceta recibida ejecutamos un get al servidor para obtener los datos de los sensores
+  FlowerPotDetailsState({required this.flowerPot});
 
   final lastRegisteredSensors = FlowerpotSensor(
     id: 1,
@@ -42,10 +40,6 @@ class FlowerpotDetailsState extends GetxController {
               "Fertiliza cada mes durante la primavera y el verano"),
     ],
   );
-
-  void onTapFloatingButton(BuildContext context) {
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlowerpotConfigurations(flowerPot: flowerPot)));
-  }
 
   void onTapSensors(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
