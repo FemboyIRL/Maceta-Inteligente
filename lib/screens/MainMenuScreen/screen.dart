@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
-import 'package:maceta_inteligente/screens/PantallaMenuPrincipal/state.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
+import 'package:maceta_inteligente/screens/MainMenuScreen/state.dart';
 import 'package:maceta_inteligente/utilities/delegates/header_child_sliver_list.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/widgets/common_scaffold.dart';
@@ -23,7 +23,7 @@ class MainMenuScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: SearchBar(
                     onChanged: state.onSearchUpdated,
-                    hintText: 'Buscar planta',
+                    hintText: 'Buscar maceta',
                     trailing: const [Icon(Icons.search, size: 35)]))));
   }
 
@@ -73,7 +73,7 @@ class MainMenuScreen extends StatelessWidget {
                   onTap: () => state.handleOnTapAdd(context),
                 );
               } else {
-                final MyFlowerpotOperationalModel item =
+                final Smartpot item =
                     state.myFlowerPots[index];
                 return MyFlowerpotWidget(flowerPot: item);
               }

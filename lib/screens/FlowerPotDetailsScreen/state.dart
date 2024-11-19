@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
-import 'package:maceta_inteligente/screens/PantallaGraficasSensores/screen.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
+import 'package:maceta_inteligente/screens/SensorChartsScreen/screen.dart';
 
 class FlowerPotDetailsState extends GetxController {
-  late final MyFlowerpotOperationalModel flowerPot;
+  late final Smartpot flowerPot;
   FlowerPotDetailsState({required this.flowerPot});
 
   final lastRegisteredSensors = FlowerpotSensor(

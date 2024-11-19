@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/screens/PantallaLogin/screen.dart';
-import 'package:maceta_inteligente/screens/PantallaRegistro/screen.dart';
+import 'package:maceta_inteligente/screens/LoginScreen/screen.dart';
+import 'package:maceta_inteligente/screens/RegisterScreen/screen.dart';
 
 class EstadoCatalogo extends GetxController {
   void cambiarPantalla(String text, BuildContext context) {

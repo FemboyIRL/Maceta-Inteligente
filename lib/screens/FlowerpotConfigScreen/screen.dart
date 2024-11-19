@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerpotConfigScreen/state.dart';
 import 'package:maceta_inteligente/widgets/config_range_widget.dart';
 
 class FlowerpotConfigScreen extends StatelessWidget {
-  final MyFlowerpotOperationalModel flowerPot;
+  final Smartpot flowerPot;
 
   const FlowerpotConfigScreen({super.key, required this.flowerPot});
 

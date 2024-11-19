@@ -1,20 +1,15 @@
-enum DangerLevel {
-  zero,
-  low,
-  medium,
-  high,
-}
+import 'package:maceta_inteligente/models/alert_event_type_enum.dart';
 
 class FlowerpotAlert {
   final int id;
-  final DangerLevel dangerLevel;
+  final EventType eventType;
   final String message;
   final DateTime date;
   bool isActive;
 
   FlowerpotAlert({
     required this.id,
-    required this.dangerLevel,
+    required this.eventType,
     required this.message,
     required this.date,
     this.isActive = true,
@@ -26,19 +21,21 @@ class FlowerpotAlert {
       message: map['message'] ?? 'No message provided',
       date: DateTime.parse(map['date']),
       isActive: map['isActive'] ?? true,
-      dangerLevel: _parseDangerLevel(map['dangerLevel']),
+      eventType: _parseEventType(map['eventType']),
     );
   }
-  static DangerLevel _parseDangerLevel(String level) {
+  static EventType _parseEventType(String level) {
     switch (level) {
+      case 'water_event':
+        return EventType.waterEvent;
       case 'low':
-        return DangerLevel.low;
+        return EventType.lowRisk;
       case 'medium':
-        return DangerLevel.medium;
+        return EventType.mediumRisk;
       case 'high':
-        return DangerLevel.high;
+        return EventType.highRisk;
       default:
-        return DangerLevel.zero;
+        return EventType.zero;
     }
   }
 }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotScreen/screen.dart';
 import 'package:maceta_inteligente/utilities/assets/assets_resources.dart';
 
 class MyFlowerpotWidget extends StatelessWidget {
-  final MyFlowerpotOperationalModel flowerPot;
+  final Smartpot flowerPot;
 
   const MyFlowerpotWidget({super.key, required this.flowerPot});
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: flowerPot.plantName,
+      tag: flowerPot.potName,
       child: SizedBox(
         width: 150,
         child: InkWell(
@@ -75,7 +75,7 @@ class MyFlowerpotWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Última actualización: ${flowerPot.lastUpdated}',
+                    'Última actualización: ${flowerPot.updatedAt}',
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],

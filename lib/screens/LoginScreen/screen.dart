@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:maceta_inteligente/screens/PantallaLogin/state.dart';
+import 'package:maceta_inteligente/screens/LoginScreen/state.dart';
 
 class LoginScreen extends StatelessWidget{
   const LoginScreen({super.key});

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/flowerpot_configs/server_model/server_model.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 
 class FlowerpotConfigState extends GetxController {
-  late final MyFlowerpotOperationalModel flowerPot;
+  late final Smartpot flowerPot;
   FlowerpotConfigState({required this.flowerPot});
   var notificationsEnabled = false.obs;
 
@@ -14,6 +14,7 @@ class FlowerpotConfigState extends GetxController {
   }
 
   FlowerpotConfigs config = FlowerpotConfigs(
+    smartpotId: 1,
     temperatureMax: 30.0,
     temperatureMin: 18.0,
     humidityMax: 80.0,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
@@ -21,36 +21,52 @@ class MainMenuState extends GetxController {
   final lastDateRegistered = ''.obs;
   final weatherIcon = ''.obs;
 
-  List<MyFlowerpotOperationalModel> myFlowerPots = [
-    MyFlowerpotOperationalModel(
+  List<Smartpot> myFlowerPots = [
+    Smartpot(
       id: 1,
-      userID: 1,
-      plantName: 'Aloe Vera',
+      serialNumber: 'SN12345',
       potName: 'Pot 1',
-      location: 'Living Room',
+      ubication: 'Living Room',
+      updatedAt: DateTime.now(),
+      size: 'Medium',
       status: FlowerStatusEnum.good,
-      lastUpdated: DateTime.now(),
+      userProfileId: 101,
+      plantId: 201,
     ),
-    MyFlowerpotOperationalModel(
+    Smartpot(
       id: 2,
-      userID: 1,
-      plantName: 'Succulent',
+      serialNumber: 'SN12346',
       potName: 'Pot 2',
-      location: 'Bedroom',
-      status: FlowerStatusEnum.criticCondition,
-      lastUpdated: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-    MyFlowerpotOperationalModel(
-      id: 3,
-      userID: 2,
-      plantName: 'Basil',
-      potName: 'Pot 3',
-      location: 'Kitchen',
+      ubication: 'Kitchen',
+      updatedAt: DateTime.now(),
+      size: 'Large',
       status: FlowerStatusEnum.inDanger,
-      lastUpdated: DateTime.now().subtract(const Duration(days: 3)),
+      userProfileId: 102,
+      plantId: 202,
+    ),
+    Smartpot(
+      id: 3,
+      serialNumber: 'SN12347',
+      potName: 'Pot 3',
+      ubication: 'Balcony',
+      updatedAt: DateTime.now(),
+      size: 'Small',
+      status: FlowerStatusEnum.criticCondition,
+      userProfileId: 103,
+      plantId: 203,
+    ),
+    Smartpot(
+      id: 4,
+      serialNumber: 'SN12348',
+      potName: 'Pot 4',
+      ubication: 'Bedroom',
+      updatedAt: DateTime.now(),
+      size: 'Medium',
+      status: FlowerStatusEnum.good,
+      userProfileId: 104,
+      plantId: 204,
     ),
   ];
-
   @override
   void onInit() async {
     super.onInit();
@@ -65,6 +81,7 @@ class MainMenuState extends GetxController {
       language: languageCode == 'en' ? Language.ENGLISH : Language.SPANISH,
     );
     _weatherWidget();
+
     update();
   }
 
@@ -103,12 +120,11 @@ class MainMenuState extends GetxController {
     }
   }
 
-  List<MyFlowerpotOperationalModel> filteredOperations() => myFlowerPots
+  List<Smartpot> filteredOperations() => myFlowerPots
       .where((item) => <bool>[
-            item.plantName
+            item.potName
                 .toLowerCase()
                 .contains(searchValue.value.toLowerCase()),
-            item.potName.contains(searchValue.value.toLowerCase()) == true
           ].any((element) => element))
       .toList();
 

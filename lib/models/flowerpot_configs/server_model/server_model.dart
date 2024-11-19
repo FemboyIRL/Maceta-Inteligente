@@ -1,4 +1,5 @@
 class FlowerpotConfigs {
+  final int smartpotId;
   double temperatureMax;
   double temperatureMin;
   double humidityMax;
@@ -8,6 +9,7 @@ class FlowerpotConfigs {
   bool notificationsEnabled;
 
   FlowerpotConfigs({
+    required this.smartpotId,
     required this.temperatureMax,
     required this.temperatureMin,
     required this.humidityMax,
@@ -19,6 +21,7 @@ class FlowerpotConfigs {
 
   factory FlowerpotConfigs.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotConfigs(
+      smartpotId: map['smartpot_id'] as int,
       temperatureMax: map['temperatureMax'],
       temperatureMin: map['temperatureMin'],
       humidityMax: map['humidityMax'],

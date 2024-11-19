@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/screen.dart';
 import 'package:maceta_inteligente/screens/FlowerPotScreen/state.dart';
 import 'package:maceta_inteligente/screens/FlowerpotAlertsScreen/screen.dart';
@@ -8,7 +8,7 @@ import 'package:maceta_inteligente/screens/FlowerpotConfigScreen/screen.dart';
 import 'package:maceta_inteligente/widgets/common_scaffold.dart';
 
 class FlowerpotScreen extends StatelessWidget {
-  final MyFlowerpotOperationalModel flowerPot;
+  final Smartpot flowerPot;
 
   const FlowerpotScreen({super.key, required this.flowerPot});
 
@@ -78,7 +78,7 @@ class FlowerpotScreen extends StatelessWidget {
   }
 
   Widget _contentPanel(
-      FlowerpotState state, MyFlowerpotOperationalModel flowerPot) {
+      FlowerpotState state, Smartpot flowerPot) {
     return PageView(
       controller: state.pageController,
       onPageChanged: (index) {
@@ -105,15 +105,15 @@ class FlowerpotScreen extends StatelessWidget {
       builder: (state) => CommonScaffold(
         sliversChildren: [
           SliverToBoxAdapter(child: _navigationPanel(context, state)),
-          SliverToBoxAdapter(
-            child: Container(
+          SliverFillRemaining(
+            hasScrollBody:
+                false, 
+            child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: _contentPanel(state, flowerPot)),
-          )
+          ),
         ],
       ),
     );
   }
 }
-
-class FlowerpotConfigurationsScreen {}

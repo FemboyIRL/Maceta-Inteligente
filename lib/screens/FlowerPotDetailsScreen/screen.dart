@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/state.dart';
 
 class FlowerpotDetailsScreen extends StatelessWidget {
-  final MyFlowerpotOperationalModel flowerPot;
+  final Smartpot flowerPot;
   const FlowerpotDetailsScreen({super.key, required this.flowerPot});
 
   @override
@@ -77,12 +77,12 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                 ],
               ),
               Text(
-                'Planta: ${state.flowerPot.plantName}',
+                'Planta: ${state.flowerPot.potName}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 8),
               Text(
-                'Última actualización: ${state.flowerPot.lastUpdated}',
+                'Última actualización: ${state.flowerPot.updatedAt}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 16),

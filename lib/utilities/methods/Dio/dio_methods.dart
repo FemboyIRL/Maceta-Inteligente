@@ -19,18 +19,18 @@ abstract class DioMethods {
             dioException.response!.data =
                 json.decode(dioException.response!.data);
           } catch (error) {
-            ///IGNORE
+            ///IGNORAR
           }
         }
         throw "${dioException.response!.statusMessage}\n${getErrorFromServer(dioException.response!)}";
       }
 
       if (dioException.error is SocketException) {
-        throw 'connectionErrorMessage';
+        throw 'No se pudo establecer conexión con el servidor.';
       } else if (dioException.type == DioExceptionType.cancel) {
-        throw 'processWasCanceled';
+        throw 'El proceso fue cancelado.';
       } else if (dioException.type == DioExceptionType.connectionTimeout) {
-        throw 'weCouldNotConnectToTheServer';
+        throw 'No se pudo conectar al servidor a tiempo.';
       }
 
       throw Exception(dioException.message);
@@ -41,15 +41,15 @@ abstract class DioMethods {
       final Response<dynamic> response) async {
     try {
       if (response.statusCode! >= 500 && response.statusCode! < 600) {
-        return "internalServerError(${response.statusCode})";
+        return "Error interno del servidor (${response.statusCode})";
       }
 
       if (response.data == null) {
-        throw 'Translates.myLanguage.noInformationReceived';
+        throw 'No se recibió información del servidor.';
       }
 
       if (response.data is Map) {
-        return "${_getListServerErrors(Map<String, dynamic>.from(response.data))}${'Translates.myLanguage.errorCode'}: ${response.statusCode}";
+        return "${_getListServerErrors(Map<String, dynamic>.from(response.data))}Código de error: ${response.statusCode}";
       }
 
       if (response.data is List) {
@@ -57,7 +57,7 @@ abstract class DioMethods {
       }
 
       if (response.data is String && response.data.contains("<html>")) {
-        return "dataNotFound (${response.statusCode})";
+        return "Datos no encontrados (${response.statusCode})";
       }
 
       throw response.data;
@@ -66,7 +66,7 @@ abstract class DioMethods {
     }
   }
 
-  ///This function is just for foreach the data in the error list
+  /// Recorre los datos de la lista de errores y los formatea
   static String _getListServerErrors(final Map<String, dynamic> errors) {
     String error = "";
     for (var key in errors.keys) {

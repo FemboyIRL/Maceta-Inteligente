@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/models/user_flowerpot_model.dart';
-import 'package:maceta_inteligente/screens/PantallaGraficasSensores/screen.dart';
+import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
+import 'package:maceta_inteligente/screens/SensorChartsScreen/screen.dart';
 
 class FlowerpotState extends GetxController {
-  late final MyFlowerpotOperationalModel flowerPot;
+  late final Smartpot flowerPot;
   FlowerpotState({required this.flowerPot});
   var selectedCardIndex = 0.obs;
   List<NavigationPanelOperationalModel> navigationCards = [];
