@@ -9,6 +9,14 @@ class FlowerpotAlertsScreen extends StatelessWidget {
   const FlowerpotAlertsScreen({super.key, required this.flowerPot});
 
   Widget _alerts(BuildContext context, FlowerpotAlertsState state) {
+    if (state.flowerpotAlerts.isEmpty) {
+      return const Column(
+        children: [
+          Center(child: Text("No hay alertas")),
+        ],
+      );
+    }
+
     return ListView.builder(
       itemCount: state.flowerpotAlerts.length,
       itemBuilder: (context, index) {
@@ -26,10 +34,8 @@ class FlowerpotAlertsScreen extends StatelessWidget {
         builder: (state) => Scaffold(
               body: Column(
                 children: [
-                  // Aquí puedes agregar más widgets si es necesario
                   Expanded(
-                    child: _alerts(context,
-                        state), // El ListView ocupará el espacio restante
+                    child: _alerts(context, state),
                   ),
                 ],
               ),

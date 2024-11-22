@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/screen.dart';
@@ -77,24 +78,21 @@ class FlowerpotScreen extends StatelessWidget {
         ));
   }
 
-  Widget _contentPanel(
-      FlowerpotState state, Smartpot flowerPot) {
-    return PageView(
-      controller: state.pageController,
-      onPageChanged: (index) {
-        state.selectedCardIndex.value = index;
-      },
-      children: [
-        FlowerpotDetailsScreen(
-          flowerPot: flowerPot,
-        ),
-        FlowerpotAlertsScreen(
-          flowerPot: flowerPot,
-        ),
-        FlowerpotConfigScreen(
-          flowerPot: flowerPot,
-        ),
-      ],
+  Widget _contentPanel(FlowerpotState state, Smartpot flowerPot) {
+    return SizedBox(
+      height: MediaQuery.of(Get.context!).size.height * .70,
+      child: PageView(
+        controller: state.pageController,
+        onPageChanged: (index) {
+          state.selectedCardIndex.value =
+              index; // Asegúrate de que el estado se actualiza
+        },
+        children: [
+          FlowerpotDetailsScreen(flowerPot: flowerPot),
+          FlowerpotAlertsScreen(flowerPot: flowerPot),
+          FlowerpotConfigScreen(flowerPot: flowerPot),
+        ],
+      ),
     );
   }
 
@@ -105,13 +103,9 @@ class FlowerpotScreen extends StatelessWidget {
       builder: (state) => CommonScaffold(
         sliversChildren: [
           SliverToBoxAdapter(child: _navigationPanel(context, state)),
-          SliverFillRemaining(
-            hasScrollBody:
-                false, 
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: _contentPanel(state, flowerPot)),
-          ),
+          SliverToBoxAdapter(
+            child: _contentPanel(state, flowerPot),
+          )
         ],
       ),
     );

@@ -42,7 +42,6 @@ class MainMenuScreen extends StatelessWidget {
 
   Widget _flowerpotOverview(BuildContext context, MainMenuState state) {
     final filteredList = state.filteredOperations();
-    print(filteredList);
 
     if (filteredList.isEmpty) {
       return SizedBox(
@@ -74,7 +73,7 @@ class MainMenuScreen extends StatelessWidget {
                 );
               } else {
                 final Smartpot item =
-                    state.myFlowerPots[index];
+                    filteredList[index];
                 return MyFlowerpotWidget(flowerPot: item);
               }
             },

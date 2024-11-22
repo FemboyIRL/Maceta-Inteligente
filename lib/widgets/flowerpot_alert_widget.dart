@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:maceta_inteligente/models/alert_event_type_enum.dart';
 import 'package:maceta_inteligente/models/flowerpot_alerts/server_model/server_model.dart';
 
@@ -9,9 +10,12 @@ class FlowerpotAlertWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = alert.eventType.getBackgroundColor(alert.isActive);
-    Color iconColor = alert.eventType.getIconColor(alert.isActive);
-    Color textColor = alert.eventType.getTextColor(alert.isActive);
+    Color backgroundColor = alert.alertType.getBackgroundColor();
+    Color iconColor = alert.alertType.getIconColor();
+    Color textColor = alert.alertType.getTextColor();
+
+    String formattedDate =
+        DateFormat('dd MMM yyyy, HH:mm').format(alert.createTime);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -26,9 +30,9 @@ class FlowerpotAlertWidget extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                alert.eventType.icon,
+                alert.alertType.icon,
                 color: iconColor,
-                size: 30,
+                size: 50,
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -45,18 +49,20 @@ class FlowerpotAlertWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      alert.message,
+                      alert.alertContent,
                       style: TextStyle(
                         fontSize: 14,
-                        color: alert.isActive ? textColor : Colors.white70,
+                        color: textColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Fecha: ${alert.date.toLocal()}',
+                      'Fecha: $formattedDate',
                       style: TextStyle(
                         fontSize: 12,
-                        color: alert.isActive ? textColor : Colors.white54,
+                        fontWeight: FontWeight.bold,
+                        color: textColor.withOpacity(0.7),
                       ),
                     ),
                   ],

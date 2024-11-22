@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
@@ -13,11 +15,11 @@ class FlowerpotDetailsScreen extends StatelessWidget {
     return GetBuilder<FlowerPotDetailsState>(
         init: FlowerPotDetailsState(flowerPot: flowerPot),
         builder: (state) => Scaffold(
-              body: Column(
+              body: ListView(
                 children: [
-                  _potCard(context, state),
-                  _sensorCards(context, state),
-                  _recommendations(context, state),
+                  _potCard(context, state), 
+                  _sensorCards(context, state), 
+                  _recommendations(context, state), 
                 ],
               ),
             ));

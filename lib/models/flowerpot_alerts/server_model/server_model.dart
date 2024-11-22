@@ -2,37 +2,38 @@ import 'package:maceta_inteligente/models/alert_event_type_enum.dart';
 
 class FlowerpotAlert {
   final int id;
-  final EventType eventType;
-  final String message;
-  final DateTime date;
-  bool isActive;
+  final EventType alertType; 
+  final String alertContent; 
+  final DateTime createTime;
+  final int smartpot;
 
   FlowerpotAlert({
     required this.id,
-    required this.eventType,
-    required this.message,
-    required this.date,
-    this.isActive = true,
+    required this.alertType,
+    required this.alertContent,
+    required this.createTime,
+    required this.smartpot,
   });
 
   factory FlowerpotAlert.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotAlert(
       id: map['id'] as int,
-      message: map['message'] ?? 'No message provided',
-      date: DateTime.parse(map['date']),
-      isActive: map['isActive'] ?? true,
-      eventType: _parseEventType(map['eventType']),
+      alertContent: map['alert_content'] ?? 'No content provided', 
+      createTime: DateTime.parse(map['create_time']), 
+      smartpot: map['smartpot'] as int, 
+      alertType: _parseAlertType(map['alert_type']),
     );
   }
-  static EventType _parseEventType(String level) {
-    switch (level) {
+
+  static EventType _parseAlertType(String type) {
+    switch (type) {
       case 'water_event':
         return EventType.waterEvent;
-      case 'low':
+      case 'peligroBajo':
         return EventType.lowRisk;
-      case 'medium':
+      case 'peligroMedio':
         return EventType.mediumRisk;
-      case 'high':
+      case 'peligroAlto':
         return EventType.highRisk;
       default:
         return EventType.zero;

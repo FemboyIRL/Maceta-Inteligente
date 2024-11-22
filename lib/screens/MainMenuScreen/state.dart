@@ -120,15 +120,18 @@ class MainMenuState extends GetxController {
     }
   }
 
-  List<Smartpot> filteredOperations() => myFlowerPots
-      .where((item) => <bool>[
-            item.potName
-                .toLowerCase()
-                .contains(searchValue.value.toLowerCase()),
-          ].any((element) => element))
-      .toList();
+  List<Smartpot> filteredOperations() {
+    return myFlowerPots.where((item) {
+      return item.potName
+          .toLowerCase()
+          .contains(searchValue.value.toLowerCase());
+    }).toList();
+  }
 
-  void onSearchUpdated(final String newValue) => searchValue.value = newValue;
+  void onSearchUpdated(final String newValue) {
+    searchValue.value = newValue;
+    print(searchValue.value);
+  }
 
   @override
   void dispose() {
