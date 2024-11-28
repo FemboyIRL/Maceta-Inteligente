@@ -22,13 +22,13 @@ class FlowerpotConfigs {
   factory FlowerpotConfigs.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotConfigs(
       smartpotId: map['smartpot_id'] as int,
-      temperatureMax: map['temperatureMax'],
-      temperatureMin: map['temperatureMin'],
-      humidityMax: map['humidityMax'],
-      humidityMin: map['humidityMin'],
-      lightMax: map['lightMax'],
-      lightMin: map['lightMin'],
-      notificationsEnabled: map['notificationsEnabled'],
+      temperatureMax: (map['temperatureMax'] as num?)?.toDouble() ?? 0.0,
+      temperatureMin: (map['temperatureMin'] as num?)?.toDouble() ?? 0.0,
+      humidityMax: (map['humidityMax'] as num?)?.toDouble() ?? 0.0,
+      humidityMin: (map['humidityMin'] as num?)?.toDouble() ?? 0.0,
+      lightMax: (map['lightMax'] as num?)?.toDouble() ?? 0.0,
+      lightMin: (map['lightMin'] as num?)?.toDouble() ?? 0.0,
+      notificationsEnabled: map['notificationsEnabled'] as bool? ?? false,
     );
   }
 }

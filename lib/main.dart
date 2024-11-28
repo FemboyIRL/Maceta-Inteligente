@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/screens/MainMenuScreen/screen.dart';
 import 'package:maceta_inteligente/screens/SplashScreen/screen.dart';
 
 void main() {
@@ -28,7 +27,7 @@ class GrowSmartApp extends StatelessWidget {
               clipBehavior: Clip.antiAliasWithSaveLayer,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(23))))),
-      home: const MainMenuScreen(),
+      home: const SplashScreen(),
     );
   }
 }

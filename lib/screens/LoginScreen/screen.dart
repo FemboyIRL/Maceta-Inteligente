@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
             width: 150,
             child: Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async => await state.loginToServer(),
                 child: const Text(
                   "Entrar",
                   style: TextStyle(

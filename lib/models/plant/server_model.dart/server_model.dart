@@ -1,16 +1,4 @@
-class Recomendation {
-  final String type;
-  final String recommendation;
-
-  Recomendation({required this.type, required this.recommendation});
-
-  factory Recomendation.fromMap(Map<String, dynamic> map) {
-    return Recomendation(
-      type: map['type'] as String,
-      recommendation: map['recommendation'] as String,
-    );
-  }
-}
+import 'package:maceta_inteligente/models/plant_recomendation.dart';
 
 class PlantConfigs {
   final int id;
@@ -37,19 +25,32 @@ class PlantConfigs {
 
   factory PlantConfigs.fromServer(Map<String, dynamic> map) {
     return PlantConfigs(
-      id: map['id'] as int,
-      plantName: map['plantName'] as String,
-      maxTemperature: (map['maximum_temperature'] as num).toDouble(),
-      minTemperature: (map['minimum_temperature'] as num).toDouble(),
-      maxHumidity: (map['maximum_humidity'] as num).toDouble(),
-      minHumidity: (map['minimum_humidity'] as num).toDouble(),
-      maxLightLevel: (map['maximum_light_level'] as num).toDouble(),
-      minLightLevel: (map['minimum_light_level'] as num).toDouble(),
+      id: map['id'] as int? ?? 0,
+      plantName: map['plantName'] as String? ?? 'Unknown',
+      maxTemperature: (map['maximum_temperature'] as num?)?.toDouble() ?? 0.0,
+      minTemperature: (map['minimum_temperature'] as num?)?.toDouble() ?? 0.0,
+      maxHumidity: (map['maximum_humidity'] as num?)?.toDouble() ?? 0.0,
+      minHumidity: (map['minimum_humidity'] as num?)?.toDouble() ?? 0.0,
+      maxLightLevel: (map['maximum_light_level'] as num?)?.toDouble() ?? 0.0,
+      minLightLevel: (map['minimum_light_level'] as num?)?.toDouble() ?? 0.0,
       plantCares: List<Recomendation>.from(
-        (map['plant_cares'] as List<dynamic>).map(
+        (map['plant_cares'] as List<dynamic>? ?? []).map(
           (care) => Recomendation.fromMap(care as Map<String, dynamic>),
         ),
       ),
     );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'plantName': plantName,
+      'maximum_temperature': maxTemperature,
+      'minimum_temperature': minTemperature,
+      'maximum_humidity': maxHumidity,
+      'minimum_humidity': minHumidity,
+      'maximum_light_level': maxLightLevel,
+      'minimum_light_level': minLightLevel,
+      'plant_cares': plantCares.map((care) => care.toMap()).toList(),
+    };
   }
 }

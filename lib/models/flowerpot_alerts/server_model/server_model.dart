@@ -2,8 +2,8 @@ import 'package:maceta_inteligente/models/alert_event_type_enum.dart';
 
 class FlowerpotAlert {
   final int id;
-  final EventType alertType; 
-  final String alertContent; 
+  final EventType alertType;
+  final String alertContent;
   final DateTime createTime;
   final int smartpot;
 
@@ -18,9 +18,11 @@ class FlowerpotAlert {
   factory FlowerpotAlert.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotAlert(
       id: map['id'] as int,
-      alertContent: map['alert_content'] ?? 'No content provided', 
-      createTime: DateTime.parse(map['create_time']), 
-      smartpot: map['smartpot'] as int, 
+      alertContent: map['alert_content'] as String? ?? 'No content provided',
+      createTime: map['create_time'] != null
+          ? DateTime.parse(map['create_time'] as String)
+          : DateTime.now(),
+      smartpot: map['smartpot'] as int,
       alertType: _parseAlertType(map['alert_type']),
     );
   }
