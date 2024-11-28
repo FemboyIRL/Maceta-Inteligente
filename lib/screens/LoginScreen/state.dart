@@ -44,10 +44,43 @@ class LoginState extends GetxController {
 
       Navigator.push(Get.context!,
           MaterialPageRoute(builder: (context) => const MainMenuScreen()));
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        const SnackBar(
+          content: Text("Inicio de sesión exitoso"),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
     } catch (e) {
+      String errorMessage = 'Credenciales Invalidas.';
+
+      if (e.toString().contains('No se pudo establecer conexión')) {
+        errorMessage =
+            'No se pudo conectar al servidor. Por favor, verifica tu conexión.';
+      } else if (e.toString().contains('Error interno del servidor')) {
+        errorMessage =
+            'El servidor está experimentando problemas. Intenta más tarde.';
+      } else if (e.toString().contains('El proceso fue cancelado')) {
+        errorMessage = 'La operación fue cancelada.';
+      } else if (e
+          .toString()
+          .contains('No se pudo conectar al servidor a tiempo')) {
+        errorMessage = 'Tiempo de conexión agotado.';
+      }
+
+      _showSnackBar(Get.context!, errorMessage);
       print('Error al intentar loguearse: $e');
-      Get.snackbar('Error', 'Credenciales inválidas');
     }
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   void sendToRegisterScreen(BuildContext context) {

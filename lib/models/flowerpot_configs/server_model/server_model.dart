@@ -31,4 +31,17 @@ class FlowerpotConfigs {
       notificationsEnabled: map['notificationsEnabled'] as bool? ?? false,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'smartpot_id': smartpotId,
+      'temperatureMax': temperatureMax,
+      'temperatureMin': temperatureMin,
+      'humidityMax': humidityMax,
+      'humidityMin': humidityMin,
+      'lightMax': lightMax,
+      'lightMin': lightMin,
+      'notificationsEnabled': notificationsEnabled,
+    };
+  }
 }

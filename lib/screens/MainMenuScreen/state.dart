@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
+import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
@@ -21,57 +22,18 @@ class MainMenuState extends GetxController {
   final lastDateRegistered = ''.obs;
   final weatherIcon = ''.obs;
 
-  List<Smartpot> myFlowerPots = [
-    Smartpot(
-      id: 1,
-      serialNumber: 'SN12345',
-      potName: 'Pot 1',
-      ubication: 'Living Room',
-      updatedAt: DateTime.now(),
-      size: 'Medium',
-      status: FlowerStatusEnum.good,
-      userProfileId: 101,
-      plantId: 201,
-    ),
-    Smartpot(
-      id: 2,
-      serialNumber: 'SN12346',
-      potName: 'Pot 2',
-      ubication: 'Kitchen',
-      updatedAt: DateTime.now(),
-      size: 'Large',
-      status: FlowerStatusEnum.inDanger,
-      userProfileId: 102,
-      plantId: 202,
-    ),
-    Smartpot(
-      id: 3,
-      serialNumber: 'SN12347',
-      potName: 'Pot 3',
-      ubication: 'Balcony',
-      updatedAt: DateTime.now(),
-      size: 'Small',
-      status: FlowerStatusEnum.criticCondition,
-      userProfileId: 103,
-      plantId: 203,
-    ),
-    Smartpot(
-      id: 4,
-      serialNumber: 'SN12348',
-      potName: 'Pot 4',
-      ubication: 'Bedroom',
-      updatedAt: DateTime.now(),
-      size: 'Medium',
-      status: FlowerStatusEnum.good,
-      userProfileId: 104,
-      plantId: 204,
-    ),
-  ];
+  List<Smartpot> myFlowerPots = [];
   @override
   void onInit() async {
     super.onInit();
     GeoLocatorMethod.determinePosition();
     GeoLocatorMethod.getLocation();
+
+    final dio = HttpDioRequests();
+
+    await dio.initialize();
+
+    myFlowerPots = await dio.getUserSmartpots();
 
     Locale locale = Localizations.localeOf(Get.context!);
     String languageCode = locale.languageCode;
