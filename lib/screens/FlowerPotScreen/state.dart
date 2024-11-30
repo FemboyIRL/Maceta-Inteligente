@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
-import 'package:maceta_inteligente/screens/SensorChartsScreen/screen.dart';
 
 class FlowerpotState extends GetxController {
   late final Smartpot flowerPot;
@@ -38,15 +37,6 @@ class FlowerpotState extends GetxController {
         onTap: () => selectedCardIndex.value = 2,
       ),
     ];
-  }
-
-  void onTapFloatingButton(BuildContext context) {
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => FlowerpotConfigurations(flowerPot: flowerPot)));
-  }
-
-  void onTapSensors(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SensorDataScreen(flowerPot: flowerPot)));
   }
 }
 

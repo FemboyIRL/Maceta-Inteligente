@@ -4,6 +4,7 @@ import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/state.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
+import 'package:maceta_inteligente/widgets/sensor_card.dart';
 
 class FlowerpotDetailsScreen extends StatelessWidget {
   final Smartpot flowerPot;
@@ -106,96 +107,33 @@ class FlowerpotDetailsScreen extends StatelessWidget {
     );
   }
 
-  // Widget para mostrar las tarjetas de los sensores
-  Widget _sensorCard(
-      {required IconData icon,
-      required String label,
-      required String value,
-      required Color color}) {
-    return Expanded(
-      child: Card(
-        color: Colors.white,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            children: [
-              Icon(icon, size: 24, color: color),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                value,
-                style: const TextStyle(fontSize: 14, color: Colors.black54),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Widget que construye las tarjetas de los sensores
   Widget _sensorCards(BuildContext context, FlowerPotDetailsState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: InkWell(
-        onTap: () => state.onTapSensors(context),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Sensores",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Sensores actualizados",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _sensorCard(
-                  icon: Icons.water_drop,
-                  label: "Humedad",
-                  value: "${state.lastRegisteredSensors.humidity}%",
-                  color: Colors.blue,
-                ),
-                _sensorCard(
-                  icon: Icons.thermostat,
-                  label: "Temperatura",
-                  value: "${state.lastRegisteredSensors.temperature}°C",
-                  color: Colors.red,
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _sensorCard(
-                  icon: Icons.light_mode,
-                  label: "Luz",
-                  value: "${state.lastRegisteredSensors.lightLevel} lux",
-                  color: Colors.amber,
-                ),
-                _sensorCard(
-                  icon: Icons.opacity,
-                  label: "Agua",
-                  value: "${state.lastRegisteredSensors.waterLevel}%",
-                  color: Colors.blueAccent,
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+          GridView.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            padding: const EdgeInsets.all(8.0),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: List.generate(state.sensorCards.length, (index) {
+              final sensorCard = state.sensorCards[index];
+              return SensorCardWidget(operation: sensorCard);
+            }),
+          ),
+        ],
       ),
     );
   }
