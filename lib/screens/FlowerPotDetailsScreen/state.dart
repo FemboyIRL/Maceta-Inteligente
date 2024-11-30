@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
-import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
-import 'package:maceta_inteligente/models/plant_recomendation.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/SensorChartsScreen/screen.dart';
+import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
 
 class FlowerPotDetailsState extends GetxController {
   late final Smartpot flowerPot;
   FlowerPotDetailsState({required this.flowerPot});
 
-  final lastRegisteredSensors = FlowerpotSensor(
+  var sensorsHistory = <FlowerpotSensor>[];
+
+  var lastRegisteredSensors = FlowerpotSensor(
     id: 1,
-    potId: 101,
     humidity: 45.0,
     temperature: 22.5,
     lightLevel: 300.0,
@@ -20,27 +20,20 @@ class FlowerPotDetailsState extends GetxController {
     registerDateTime: DateTime.now().subtract(const Duration(hours: 1)),
   );
 
-  //obtenemos los datos de la planta
-  final plant = PlantConfigs(
-    id: 1,
-    plantName: "Spathiphyllum (Peace Lily)",
-    maxTemperature: 30.0,
-    minTemperature: 15.0,
-    maxHumidity: 80.0,
-    minHumidity: 40.0,
-    maxLightLevel: 3000.0,
-    minLightLevel: 100.0,
-    plantCares: [
-      Recomendation(type: "positive", recommendation: "Riega cada semana"),
-      Recomendation(
-          type: "negative",
-          recommendation: "No colocar en un sitio con poca luz"),
-      Recomendation(
-          type: "positive",
-          recommendation:
-              "Fertiliza cada mes durante la primavera y el verano"),
-    ],
-  );
+  @override
+  void onInit() async {
+    super.onInit();
+    final dio = HttpDioRequests();
+
+    await dio.initialize();
+
+    sensorsHistory = await dio.getUserSmartpotSensors(flowerPot.id.toString());
+
+    lastRegisteredSensors = sensorsHistory.reduce(
+        (a, b) => a.registerDateTime.isAfter(b.registerDateTime) ? a : b);
+
+    update();
+  }
 
   void onTapSensors(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(

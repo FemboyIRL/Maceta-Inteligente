@@ -1,4 +1,5 @@
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
+import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
 
 class Smartpot {
   final int id;
@@ -8,8 +9,7 @@ class Smartpot {
   final DateTime updatedAt;
   final String size;
   final FlowerStatusEnum status;
-  final int userProfileId;
-  final int? plantId;
+  final Plant? plant;
 
   Smartpot({
     required this.id,
@@ -19,8 +19,7 @@ class Smartpot {
     required this.updatedAt,
     required this.size,
     required this.status,
-    required this.userProfileId,
-    this.plantId,
+    this.plant,
   });
 
   factory Smartpot.fromServer(Map<String, dynamic> map) {
@@ -32,8 +31,7 @@ class Smartpot {
       updatedAt: DateTime.parse(map['updated_at'] as String),
       size: map['size'] as String,
       status: _statusFromInt(map['status'] as int),
-      userProfileId: map['user_profile_id'] as int,
-      plantId: map['plant_id'] as int?,
+      plant: map['plant'] != null ? Plant.fromServer(map['plant']) : null,
     );
   }
 
@@ -45,9 +43,8 @@ class Smartpot {
       'ubication': ubication,
       'updated_at': updatedAt.toIso8601String(),
       'size': size,
-      'status': status,
-      'user_profile_id': userProfileId,
-      'plant_id': plantId,
+      'status': status.index,
+      'plant': plant?.toMap(),
     };
   }
 

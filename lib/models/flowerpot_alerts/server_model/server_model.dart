@@ -37,6 +37,8 @@ class FlowerpotAlert {
         return EventType.mediumRisk;
       case 'peligroAlto':
         return EventType.highRisk;
+      case 'peligroNulo':
+        return EventType.zero;
       default:
         return EventType.zero;
     }

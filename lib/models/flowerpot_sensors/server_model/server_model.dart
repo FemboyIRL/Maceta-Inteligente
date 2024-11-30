@@ -1,6 +1,5 @@
 class FlowerpotSensor {
   final int id;
-  final int potId;
   final double humidity;
   final double temperature;
   final double lightLevel;
@@ -9,7 +8,6 @@ class FlowerpotSensor {
 
   FlowerpotSensor({
     required this.id,
-    required this.potId,
     required this.humidity,
     required this.temperature,
     required this.lightLevel,
@@ -20,13 +18,12 @@ class FlowerpotSensor {
   factory FlowerpotSensor.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotSensor(
       id: map['id'] as int,
-      potId: map['potId'] as int,
-      humidity: (map['humidity'] as num?)?.toDouble() ?? 0.0,
+      humidity: double.parse(map['floor_humidity'] as String? ?? '0.0'),
       temperature: (map['temperature'] as num?)?.toDouble() ?? 0.0,
-      lightLevel: (map['lightLevel'] as num?)?.toDouble() ?? 0.0,
-      waterLevel: (map['waterLevel'] as num?)?.toDouble() ?? 0.0,
-      registerDateTime: map['registerDateTime'] != null
-          ? DateTime.parse(map['registerDateTime'] as String)
+      lightLevel: (map['light_level'] as num?)?.toDouble() ?? 0.0,
+      waterLevel: (map['water_level'] as num?)?.toDouble() ?? 0.0,
+      registerDateTime: map['registed_at'] != null
+          ? DateTime.parse(map['registed_at'] as String)
           : DateTime.now(),
     );
   }

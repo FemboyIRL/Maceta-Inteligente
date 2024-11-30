@@ -61,7 +61,7 @@ class MainMenuScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 270,
+          height: 250,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: filteredList.length + 1,
@@ -72,8 +72,7 @@ class MainMenuScreen extends StatelessWidget {
                   onTap: () => state.handleOnTapAdd(context),
                 );
               } else {
-                final Smartpot item =
-                    filteredList[index];
+                final Smartpot item = filteredList[index];
                 return MyFlowerpotWidget(flowerPot: item);
               }
             },

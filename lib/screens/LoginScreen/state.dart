@@ -48,7 +48,7 @@ class LoginState extends GetxController {
         const SnackBar(
           content: Text("Inicio de sesión exitoso"),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
         ),
       );
     } catch (e) {

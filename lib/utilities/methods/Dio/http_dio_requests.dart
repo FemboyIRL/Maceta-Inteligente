@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/flowerpot_alerts/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/flowerpot_configs/server_model/server_model.dart';
+import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/models/user_model.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
@@ -76,7 +77,6 @@ class HttpDioRequests {
 
   Future<List<Smartpot>> getUserSmartpots() async {
     const String endpoint = '/api/smartpots/';
-    print(token);
 
     try {
       final response = await DioMethods.validateRequest<List<dynamic>>(
@@ -95,6 +95,35 @@ class HttpDioRequests {
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
         SnackBar(content: Text('Error al obtener las macetas: $e')),
+      );
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<FlowerpotSensor>> getUserSmartpotSensors(String id) async {
+    final String endpoint = '/api/smartpots/$id/sensors';
+
+    try {
+      final response = await DioMethods.validateRequest<List<dynamic>>(
+        _dio.get(
+          endpoint,
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
+        ),
+        urlPath: endpoint,
+      );
+
+      return response.data!
+          .map((e) => FlowerpotSensor.fromMapServer(e))
+          .toList();
+    } catch (e) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+            content: Text('Error al obtener las sensores de la maceta: $id')),
       );
       print(e);
       rethrow;
@@ -142,6 +171,62 @@ class HttpDioRequests {
     }
   }
 
+  Future<List<FlowerpotAlert>> getSmartpotAlerts(String smartpotId) async {
+    final String endpoint = '/api/smartpots/$smartpotId/alerts/';
+
+    try {
+      final response = await DioMethods.validateRequest<List<dynamic>>(
+        _dio.get(
+          endpoint,
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
+        ),
+        urlPath: endpoint,
+      );
+
+      return response.data!
+          .map((e) => FlowerpotAlert.fromMapServer(e))
+          .toList();
+    } catch (e) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text('Error al obtener las alertas: $e')),
+      );
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<FlowerpotAlert>> getSmartpotWaterEvents(String smartpotId) async {
+    final String endpoint = '/api/smartpots/$smartpotId/watering/';
+
+    try {
+      final response = await DioMethods.validateRequest<List<dynamic>>(
+        _dio.get(
+          endpoint,
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
+        ),
+        urlPath: endpoint,
+      );
+
+      return response.data!
+          .map((e) => FlowerpotAlert.fromMapServer(e))
+          .toList();
+    } catch (e) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text('Error al obtener los eventos de riego: $e')),
+      );
+      print(e);
+      rethrow;
+    }
+  }
+
   Future<FlowerpotConfigs> updateSmartpotConfigurations(
       String smartpotId, FlowerpotConfigs configurations) async {
     final String endpoint = '/api/smartpots/$smartpotId/configurations/';
@@ -165,21 +250,28 @@ class HttpDioRequests {
     }
   }
 
-  Future<List<FlowerpotAlert>> getSmartpotAlerts(String smartpotId) async {
-    final String endpoint = '/api/smartpots/$smartpotId/alerts/';
+  Future<FlowerpotConfigs> getSmartpotConfig(String id) async {
+    final String endpoint = '/api/smartpots/$id/configurations/';
 
     try {
-      final response = await DioMethods.validateRequest<List<dynamic>>(
-        _dio.get(endpoint),
+      final response = await DioMethods.validateRequest<Map<String, dynamic>>(
+        _dio.get(
+          endpoint,
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
+        ),
         urlPath: endpoint,
       );
 
-      return response.data!
-          .map((e) => FlowerpotAlert.fromMapServer(e))
-          .toList();
+      return FlowerpotConfigs.fromMapServer(response.data!);
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(content: Text('Error al obtener las alertas: $e')),
+        SnackBar(
+            content:
+                Text('Error al obtener las configuraciones de la maceta: $e')),
       );
       print(e);
       rethrow;

@@ -54,10 +54,9 @@ class FlowerpotConfigScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 12.0, horizontal: 16.0),
                   child: Card(
-                    elevation: 5, 
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),

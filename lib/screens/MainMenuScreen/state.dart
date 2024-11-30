@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
-import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
@@ -34,6 +33,8 @@ class MainMenuState extends GetxController {
     await dio.initialize();
 
     myFlowerPots = await dio.getUserSmartpots();
+
+    print(myFlowerPots.first.plant!.plantCares);
 
     Locale locale = Localizations.localeOf(Get.context!);
     String languageCode = locale.languageCode;

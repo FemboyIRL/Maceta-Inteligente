@@ -21,15 +21,26 @@ class FlowerpotConfigs {
 
   factory FlowerpotConfigs.fromMapServer(Map<String, dynamic> map) {
     return FlowerpotConfigs(
-      smartpotId: map['smartpot_id'] as int,
-      temperatureMax: (map['temperatureMax'] as num?)?.toDouble() ?? 0.0,
-      temperatureMin: (map['temperatureMin'] as num?)?.toDouble() ?? 0.0,
-      humidityMax: (map['humidityMax'] as num?)?.toDouble() ?? 0.0,
-      humidityMin: (map['humidityMin'] as num?)?.toDouble() ?? 0.0,
-      lightMax: (map['lightMax'] as num?)?.toDouble() ?? 0.0,
-      lightMin: (map['lightMin'] as num?)?.toDouble() ?? 0.0,
-      notificationsEnabled: map['notificationsEnabled'] as bool? ?? false,
+      smartpotId: map['id'] as int,
+      temperatureMax: _parseDouble(map['maximun_temperature']),
+      temperatureMin: _parseDouble(map['minimun_temperature']),
+      humidityMax: _parseDouble(map['maximun_humidity']),
+      humidityMin: _parseDouble(map['minimun_humidity']),
+      lightMax: _parseDouble(map['maximun_ligth_level']),
+      lightMin: _parseDouble(map['minimun_ligth_level']),
+      notificationsEnabled: map['notifications_is_activated'] as bool? ?? false,
     );
+  }
+
+  static double _parseDouble(dynamic value) {
+    if (value is String) {
+      return double.tryParse(value) ??
+          0.0; // Si es String, intenta convertirlo a double
+    } else if (value is num) {
+      return value.toDouble(); // Si ya es un número, lo convierte a double
+    } else {
+      return 0.0; // Si no es ni String ni num, retorna 0.0
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -41,7 +52,7 @@ class FlowerpotConfigs {
       'humidityMin': humidityMin,
       'lightMax': lightMax,
       'lightMin': lightMin,
-      'notificationsEnabled': notificationsEnabled,
+      'notifications_is_activated': notificationsEnabled,
     };
   }
 }

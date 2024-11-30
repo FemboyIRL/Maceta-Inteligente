@@ -7,14 +7,14 @@ class Recomendation {
   factory Recomendation.fromMap(Map<String, dynamic> map) {
     return Recomendation(
       type: map['type'] as String,
-      recommendation: map['recommendation'] as String,
+      recommendation: map['content'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'type': type,
-      'recommendation': recommendation,
+      'content': recommendation,
     };
   }
 }

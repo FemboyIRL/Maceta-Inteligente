@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotDetailsScreen/state.dart';
+import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 
 class FlowerpotDetailsScreen extends StatelessWidget {
   final Smartpot flowerPot;
@@ -17,9 +16,20 @@ class FlowerpotDetailsScreen extends StatelessWidget {
         builder: (state) => Scaffold(
               body: ListView(
                 children: [
-                  _potCard(context, state), 
-                  _sensorCards(context, state), 
-                  _recommendations(context, state), 
+                  _potCard(context, state),
+                  _sensorCards(context, state),
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      "Recomendaciones",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  _recommendations(context, state),
                 ],
               ),
             ));
@@ -84,7 +94,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Última actualización: ${state.flowerPot.updatedAt}',
+                'Última actualización: ${GlobalMethods.formatWeatherDate(state.flowerPot.updatedAt)}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 16),
@@ -192,7 +202,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
 
   // Widget para las recomendaciones
   Widget _recommendations(BuildContext context, FlowerPotDetailsState state) {
-    if (state.plant.plantCares.isEmpty) {
+    if (state.flowerPot.plant!.plantCares.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(16.0),
         child: Text(
@@ -207,16 +217,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Recomendaciones",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 12),
-          ...state.plant.plantCares.map((rec) => Card(
+          ...state.flowerPot.plant!.plantCares.map((rec) => Card(
                 elevation: 4,
                 margin: const EdgeInsets.symmetric(vertical: 4.0),
                 shape: RoundedRectangleBorder(

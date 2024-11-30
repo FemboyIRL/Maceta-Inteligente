@@ -1,6 +1,6 @@
 import 'package:maceta_inteligente/models/plant_recomendation.dart';
 
-class PlantConfigs {
+class Plant {
   final int id;
   final String plantName;
   final double maxTemperature;
@@ -11,7 +11,7 @@ class PlantConfigs {
   final double minLightLevel;
   final List<Recomendation> plantCares;
 
-  PlantConfigs({
+  Plant({
     required this.id,
     required this.plantName,
     required this.maxTemperature,
@@ -23,8 +23,8 @@ class PlantConfigs {
     required this.plantCares,
   });
 
-  factory PlantConfigs.fromServer(Map<String, dynamic> map) {
-    return PlantConfigs(
+  factory Plant.fromServer(Map<String, dynamic> map) {
+    return Plant(
       id: map['id'] as int? ?? 0,
       plantName: map['plantName'] as String? ?? 'Unknown',
       maxTemperature: (map['maximum_temperature'] as num?)?.toDouble() ?? 0.0,
@@ -34,7 +34,7 @@ class PlantConfigs {
       maxLightLevel: (map['maximum_light_level'] as num?)?.toDouble() ?? 0.0,
       minLightLevel: (map['minimum_light_level'] as num?)?.toDouble() ?? 0.0,
       plantCares: List<Recomendation>.from(
-        (map['plant_cares'] as List<dynamic>? ?? []).map(
+        (map['recommendations'] as List<dynamic>? ?? []).map(
           (care) => Recomendation.fromMap(care as Map<String, dynamic>),
         ),
       ),
@@ -50,7 +50,7 @@ class PlantConfigs {
       'minimum_humidity': minHumidity,
       'maximum_light_level': maxLightLevel,
       'minimum_light_level': minLightLevel,
-      'plant_cares': plantCares.map((care) => care.toMap()).toList(),
+      'recommendations': plantCares.map((care) => care.toMap()).toList(),
     };
   }
 }

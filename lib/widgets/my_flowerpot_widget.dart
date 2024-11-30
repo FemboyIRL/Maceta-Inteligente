@@ -3,6 +3,7 @@ import 'package:maceta_inteligente/models/flower_status_enum.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/screens/FlowerPotScreen/screen.dart';
 import 'package:maceta_inteligente/utilities/assets/assets_resources.dart';
+import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
 
 class MyFlowerpotWidget extends StatelessWidget {
   final Smartpot flowerPot;
@@ -11,15 +12,18 @@ class MyFlowerpotWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Hero(
       tag: flowerPot.potName,
       child: SizedBox(
-        width: 150,
+        width: screenWidth * 0.4,
         child: InkWell(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => FlowerpotScreen(
-                    flowerPot: flowerPot,
-                  ))),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FlowerpotScreen(flowerPot: flowerPot),
+            ),
+          ),
           child: Card(
             color: Colors.white,
             elevation: 4,
@@ -35,8 +39,8 @@ class MyFlowerpotWidget extends StatelessWidget {
                     children: [
                       Image.asset(
                         AssetsResources.flowerPot,
-                        height: 100,
-                        width: 100,
+                        height: screenWidth * 0.25,
+                        width: screenWidth * 0.25,
                         fit: BoxFit.cover,
                       ),
                       Positioned(
@@ -68,15 +72,36 @@ class MyFlowerpotWidget extends StatelessWidget {
                   const SizedBox(height: 12),
                   Text(
                     flowerPot.potName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Última actualización: ${flowerPot.updatedAt}',
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Última actualización:',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        GlobalMethods.formatWeatherDate(flowerPot.updatedAt),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
