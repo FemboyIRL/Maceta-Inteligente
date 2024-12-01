@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/sensor_card_operational_model.dart';
 import 'package:maceta_inteligente/screens/SensorChartsScreen/state.dart';
 import 'package:maceta_inteligente/widgets/common_scaffold.dart';
+import 'package:maceta_inteligente/widgets/sensor_data_chart_widget.dart';
 import 'package:maceta_inteligente/widgets/sensor_navigation_widget.dart';
 
 class SensorDataScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class SensorDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SensorDataState>(
-      init: SensorDataState(sensor: sensor),
+      init: SensorDataState(selectedSensor: sensor),
       builder: (state) {
         return CommonScaffold(
           sliversChildren: [
@@ -33,11 +33,13 @@ class SensorDataScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Datos de ${sensor.label}",
+                        "Historial de ${state.selectedSensor.label}",
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    SensorLineChart(sensorData: state.selectedSensorHistory)
                   ],
                 ),
               ),

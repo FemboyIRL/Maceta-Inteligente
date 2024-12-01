@@ -13,23 +13,20 @@ class SensorNavigationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtener el ancho de la pantalla
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // Reducir el ancho máximo de las Cards para hacerlas más pequeñas
-    const cardMaxWidth = 90.0; // Máximo ancho de cada card
+    const cardMaxWidth = 90.0;
     final crossAxisCount = (screenWidth / cardMaxWidth).floor();
 
     return GridView.builder(
-      physics:
-          const NeverScrollableScrollPhysics(), // Desactiva el scroll interno
-      shrinkWrap: true, // Ajusta el tamaño al contenido
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: sensors.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        crossAxisSpacing: 6.0, // Espacio horizontal entre columnas
-        mainAxisSpacing: 6.0, // Espacio vertical entre filas
-        childAspectRatio: 1.0, // Proporción ancho:alto de cada card
+        crossAxisSpacing: 6.0,
+        mainAxisSpacing: 6.0,
+        childAspectRatio: 1.0,
       ),
       itemBuilder: (context, index) {
         final sensor = sensors[index];

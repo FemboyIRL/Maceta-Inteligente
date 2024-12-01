@@ -3,7 +3,6 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/sensor_card_operational_model.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
-import 'package:maceta_inteligente/screens/SensorChartsScreen/screen.dart';
 import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
 
 class FlowerPotDetailsState extends GetxController {
