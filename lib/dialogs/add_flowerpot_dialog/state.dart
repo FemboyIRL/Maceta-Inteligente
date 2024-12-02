@@ -69,26 +69,16 @@ class AddFlowerpotDialogState extends GetxController {
 
       final response = await dio.createSmartpot(newSmartpot);
 
-      if (response != null) {
-        Get.snackbar(
-          "Maceta Agregada",
-          "La maceta se ha agregado correctamente.",
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-        Navigator.of(Get.context!).pop();
-        plants = await dio.getPlants();
-        update();
-      } else {
-        Get.snackbar(
-          "Error",
-          "Hubo un problema al agregar la maceta.",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
+      Get.snackbar(
+        "Maceta Agregada",
+        "La maceta se ha agregado correctamente.",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+      Navigator.of(Get.context!).pop();
+      plants = await dio.getPlants();
+      update();
     } catch (e) {
-      // Manejo de errores en caso de fallos
       Get.snackbar(
         "Error",
         "Hubo un error al agregar la maceta.",
