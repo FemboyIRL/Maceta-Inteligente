@@ -6,7 +6,6 @@ import 'package:maceta_inteligente/models/flowerpot_configs/server_model/server_
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
-import 'package:maceta_inteligente/models/user_model.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
 import 'dio_methods.dart';
 

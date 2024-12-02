@@ -21,4 +21,9 @@ class FlowerpotAlertsState extends GetxController {
 
     update();
   }
+
+  void handleDelete(int id) {
+    flowerpotAlerts.removeWhere((alert) => alert.id == id);
+    update();
+  }
 }

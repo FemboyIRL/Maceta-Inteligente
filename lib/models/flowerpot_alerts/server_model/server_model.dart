@@ -29,10 +29,8 @@ class FlowerpotAlert {
 
   static EventType _parseAlertType(String type) {
     switch (type) {
-      case 'water_event':
+      case 'eventoRiego':
         return EventType.waterEvent;
-      case 'peligroBajo':
-        return EventType.lowRisk;
       case 'peligroModerado':
         return EventType.mediumRisk;
       case 'peligroAlto':

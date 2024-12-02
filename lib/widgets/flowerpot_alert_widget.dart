@@ -5,8 +5,10 @@ import 'package:maceta_inteligente/models/flowerpot_alerts/server_model/server_m
 
 class FlowerpotAlertWidget extends StatelessWidget {
   final FlowerpotAlert alert;
+  final VoidCallback onTapDelete;
 
-  const FlowerpotAlertWidget({super.key, required this.alert});
+  const FlowerpotAlertWidget(
+      {super.key, required this.alert, required this.onTapDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +83,7 @@ class FlowerpotAlertWidget extends StatelessWidget {
                 elevation: 20,
                 shape: const CircleBorder(),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: onTapDelete,
                   child: const CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 16,
