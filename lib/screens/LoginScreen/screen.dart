@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                   onTap: () => state.sendToRegisterScreen(context),
                   child: const Text(
                     "Registrate",
-                    style: TextStyle(fontSize: 15, color: Colors.blue),
+                    style: TextStyle(fontSize: 15, color: Colors.green),
                   ),
                 ),
               ],
@@ -127,7 +127,7 @@ class LoginScreen extends StatelessWidget {
               onTap: () => state.sendToForgotPasswordScreen(context),
               child: const Text(
                 "Olvidaste tu contraseña?",
-                style: TextStyle(fontSize: 15, color: Colors.blue),
+                style: TextStyle(fontSize: 15, color: Colors.green),
               ),
             ),
           ],

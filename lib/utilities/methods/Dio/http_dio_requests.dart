@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:maceta_inteligente/models/flowerpot_alerts/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/flowerpot_configs/server_model/server_model.dart';
 import 'package:maceta_inteligente/models/flowerpot_sensors/server_model/server_model.dart';
+import 'package:maceta_inteligente/models/plant/server_model.dart/server_model.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/models/user_model.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
@@ -53,24 +54,30 @@ class HttpDioRequests {
     }
   }
 
-  Future<User> updateUser(String id, User user) async {
-    final String endpoint = '/users/$id';
+  Future<Map<String, dynamic>> registerUser(
+      String username, String email, String password) async {
+    const String endpoint = '/api/users/register/';
 
     try {
       final response = await DioMethods.validateRequest<Map<String, dynamic>>(
-        _dio.put(
+        _dio.post(
           endpoint,
-          data: user.toMap(),
+          data: {
+            'username': username,
+            'email': email,
+            'password': password,
+          },
         ),
         urlPath: endpoint,
       );
 
-      return User.fromServer(response.data!);
+      if (response.data != null) {
+        return response.data!;
+      } else {
+        throw Exception('Error en el registro: Datos vacíos.');
+      }
     } catch (e) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(content: Text('Error al actualizar el usuario: $e')),
-      );
-      print(e);
+      print('Error al intentar registrarse: $e');
       rethrow;
     }
   }
@@ -92,6 +99,32 @@ class HttpDioRequests {
       );
 
       return response.data!.map((e) => Smartpot.fromServer(e)).toList();
+    } catch (e) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(content: Text('Error al obtener las macetas: $e')),
+      );
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<Plant>> getPlants() async {
+    const String endpoint = '/api/plants';
+
+    try {
+      final response = await DioMethods.validateRequest<List<dynamic>>(
+        _dio.get(
+          endpoint,
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
+        ),
+        urlPath: endpoint,
+      );
+
+      return response.data!.map((e) => Plant.fromServer(e)).toList();
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
         SnackBar(content: Text('Error al obtener las macetas: $e')),
@@ -138,6 +171,11 @@ class HttpDioRequests {
         _dio.post(
           endpoint,
           data: smartpot.toJson(),
+          options: Options(
+            headers: {
+              'Authorization': 'Token $token',
+            },
+          ),
         ),
         urlPath: endpoint,
       );

@@ -74,7 +74,7 @@ class FlowerpotConfigScreen extends StatelessWidget {
                           Switch(
                             value: state.notificationsEnabled.value,
                             onChanged: (value) {
-                              state.toggleNotifications(value);
+                              state.toggleNotifications(context, value);
                             },
                             activeColor: Colors.green,
                             inactiveTrackColor: Colors.green.withOpacity(0.4),

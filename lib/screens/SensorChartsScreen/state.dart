@@ -6,9 +6,16 @@ import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart'
 
 class SensorDataState extends GetxController {
   SensorCardOperationalModel selectedSensor;
-  late FlowerpotSensor lastRegisteredSensors;
-
   SensorDataState({required this.selectedSensor});
+
+  var lastRegisteredSensors = FlowerpotSensor(
+    id: 1,
+    humidity: 45.0,
+    temperature: 22.5,
+    lightLevel: 300.0,
+    waterLevel: 80.0,
+    registerDateTime: DateTime.now().subtract(const Duration(hours: 1)),
+  );
 
   List<SensorCardOperationalModel> sensorCards = [];
   List<FlowerpotSensor> sensorsHistory = [];
@@ -24,9 +31,10 @@ class SensorDataState extends GetxController {
     sensorsHistory =
         await dio.getUserSmartpotSensors(selectedSensor.flowerPotId.toString());
 
-    lastRegisteredSensors = sensorsHistory.first;
-    lastRegisteredSensors = sensorsHistory.reduce(
-        (a, b) => a.registerDateTime.isAfter(b.registerDateTime) ? a : b);
+    if (sensorsHistory.isNotEmpty) {
+      lastRegisteredSensors = sensorsHistory.reduce(
+          (a, b) => a.registerDateTime.isAfter(b.registerDateTime) ? a : b);
+    }
 
     sensorCards = [
       SensorCardOperationalModel(
@@ -91,10 +99,6 @@ class SensorDataState extends GetxController {
         value: value,
       );
     }).toList();
-
-    print(selectedSensorHistory.first.value);
-    print("aqui toy");
-
     update();
   }
 }

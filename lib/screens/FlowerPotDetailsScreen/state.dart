@@ -29,10 +29,9 @@ class FlowerPotDetailsState extends GetxController {
 
     sensorsHistory = await dio.getUserSmartpotSensors(flowerPot.id.toString());
 
-    lastRegisteredSensors = sensorsHistory.first;
-
-    lastRegisteredSensors = sensorsHistory.reduce(
-        (a, b) => a.registerDateTime.isAfter(b.registerDateTime) ? a : b);
+    if (sensorsHistory.isNotEmpty)
+      lastRegisteredSensors = sensorsHistory.reduce(
+          (a, b) => a.registerDateTime.isAfter(b.registerDateTime) ? a : b);
 
     update();
   }

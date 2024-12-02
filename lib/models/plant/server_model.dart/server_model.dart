@@ -26,7 +26,7 @@ class Plant {
   factory Plant.fromServer(Map<String, dynamic> map) {
     return Plant(
       id: map['id'] as int? ?? 0,
-      plantName: map['plantName'] as String? ?? 'Unknown',
+      plantName: map['name'] as String? ?? 'Unknown',
       maxTemperature: (map['maximum_temperature'] as num?)?.toDouble() ?? 0.0,
       minTemperature: (map['minimum_temperature'] as num?)?.toDouble() ?? 0.0,
       maxHumidity: (map['maximum_humidity'] as num?)?.toDouble() ?? 0.0,
@@ -43,7 +43,7 @@ class Plant {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'plantName': plantName,
+      'name': plantName,
       'maximum_temperature': maxTemperature,
       'minimum_temperature': minTemperature,
       'maximum_humidity': maxHumidity,

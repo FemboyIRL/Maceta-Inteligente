@@ -44,7 +44,7 @@ class Smartpot {
       'updated_at': updatedAt.toIso8601String(),
       'size': size,
       'status': status.index,
-      'plant': plant?.toMap(),
+      'plant': plant!.id.toString(),
     };
   }
 

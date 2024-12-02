@@ -33,12 +33,12 @@ class FlowerpotAlert {
         return EventType.waterEvent;
       case 'peligroBajo':
         return EventType.lowRisk;
-      case 'peligroMedio':
+      case 'peligroModerado':
         return EventType.mediumRisk;
       case 'peligroAlto':
         return EventType.highRisk;
       case 'peligroNulo':
-        return EventType.zero;
+        return EventType.lowRisk;
       default:
         return EventType.zero;
     }

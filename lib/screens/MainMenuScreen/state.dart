@@ -34,8 +34,6 @@ class MainMenuState extends GetxController {
 
     myFlowerPots = await dio.getUserSmartpots();
 
-    print(myFlowerPots.first.plant!.plantCares);
-
     Locale locale = Localizations.localeOf(Get.context!);
     String languageCode = locale.languageCode;
 
