@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1007680945961",
+    "project_id": "growsmart-6debd",
+    "storage_bucket": "growsmart-6debd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007680945961:android:f86ded6d4dc66530600138",
+        "android_client_info": {
+          "package_name": "com.example.maceta_inteligente"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4GHf5OTQL7KkGfOSX0sd4IjBKZwKs9Cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

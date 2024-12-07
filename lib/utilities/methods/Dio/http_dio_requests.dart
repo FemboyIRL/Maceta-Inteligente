@@ -26,6 +26,26 @@ class HttpDioRequests {
 
   String? get token => _token;
 
+  Future<void> saveTokenToServer(String firebaseToken) async {
+    const String endpoint = '/api/users/save-fcm-token/';
+
+    try {
+      final response = await DioMethods.validateRequest<Map<String, dynamic>>(
+          urlPath: endpoint,
+          _dio.post(
+            endpoint,
+            data: {'fcm_token': firebaseToken},
+          ));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Token guardado en el servidor');
+      } else {
+        print('Error al guardar el token: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Excepción al guardar el token: $e');
+    }
+  }
+
   Future<Map<String, dynamic>> loginUser(
       String username, String password) async {
     const String endpoint = '/api/users/login/';
