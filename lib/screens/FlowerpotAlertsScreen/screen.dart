@@ -22,8 +22,8 @@ class FlowerpotAlertsScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         return FlowerpotAlertWidget(
           alert: state.flowerpotAlerts[index],
-          onTapDelete: () =>
-              state.handleDelete(state.flowerpotAlerts[index].id),
+          onTapDelete: () async =>
+              await state.handleDelete(state.flowerpotAlerts[index].id),
         );
       },
     );

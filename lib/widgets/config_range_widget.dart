@@ -5,6 +5,8 @@ class ConfigRangeDisplay extends StatelessWidget {
   final double maxValue;
   final double currentValue;
   final String label;
+  final Function(BuildContext, double, String) onMaxValueTap;
+  final Function(BuildContext, double, String) onMinValueTap;
 
   const ConfigRangeDisplay({
     super.key,
@@ -12,6 +14,8 @@ class ConfigRangeDisplay extends StatelessWidget {
     required this.maxValue,
     required this.currentValue,
     required this.label,
+    required this.onMinValueTap,
+    required this.onMaxValueTap,
   });
 
   @override
@@ -39,9 +43,23 @@ class ConfigRangeDisplay extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Text(
-                    minValue.toStringAsFixed(1),
-                    style: TextStyle(fontSize: 14, color: Colors.green[600]),
+                  GestureDetector(
+                    onTap: () => onMinValueTap(context, minValue, label),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.green[800],
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        minValue.toStringAsFixed(1),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Slider(
@@ -50,13 +68,26 @@ class ConfigRangeDisplay extends StatelessWidget {
                       max: maxValue,
                       onChanged: null,
                       activeColor: Colors.green,
-                      inactiveColor: Colors.green.withOpacity(
-                          0.3), 
+                      inactiveColor: Colors.green.withOpacity(0.3),
                     ),
                   ),
-                  Text(
-                    maxValue.toStringAsFixed(1),
-                    style: TextStyle(fontSize: 14, color: Colors.green[600]),
+                  GestureDetector(
+                    onTap: () => onMaxValueTap(context, maxValue, label),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.brown[800],
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        maxValue.toStringAsFixed(1),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

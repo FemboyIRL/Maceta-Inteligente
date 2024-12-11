@@ -34,6 +34,7 @@ class HttpDioRequests {
           urlPath: endpoint,
           _dio.post(
             endpoint,
+            options: Options(headers: {'Authorization': 'Token $token'}),
             data: {'fcm_token': firebaseToken},
           ));
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -290,10 +291,9 @@ class HttpDioRequests {
 
     try {
       final response = await DioMethods.validateRequest<Map<String, dynamic>>(
-        _dio.put(
-          endpoint,
-          data: configurations.toJson(),
-        ),
+        _dio.put(endpoint,
+            data: configurations.toJson(),
+            options: Options(headers: {'Authorization': 'Token $token'})),
         urlPath: endpoint,
       );
 

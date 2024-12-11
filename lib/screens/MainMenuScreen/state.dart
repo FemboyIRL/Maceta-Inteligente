@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:maceta_inteligente/dialogs/add_flowerpot_dialog/screen.dart';
 import 'package:maceta_inteligente/models/smartpot/server_model/server.dart';
 import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
+import 'package:maceta_inteligente/utilities/methods/firebase_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/geo_locator_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/global_methods.dart';
+import 'package:maceta_inteligente/utilities/methods/notifications_methods.dart';
 import 'package:maceta_inteligente/utilities/methods/shared_preferences_methods.dart';
 import 'package:weather/weather.dart';
 
@@ -25,6 +27,15 @@ class MainMenuState extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    final httpDioRequests = HttpDioRequests();
+    await httpDioRequests.initialize();
+
+    final notificationService = NotificationService();
+    await notificationService.initialize();
+
+    final firebaseMethods =
+        FirebaseMethods(httpDioRequests, notificationService);
+    await firebaseMethods.initializeFCM();
     GeoLocatorMethod.determinePosition();
     GeoLocatorMethod.getLocation();
 

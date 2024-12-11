@@ -90,7 +90,7 @@ class FlowerpotDetailsScreen extends StatelessWidget {
                 ],
               ),
               Text(
-                'Planta: ${state.flowerPot.potName}',
+                'Planta: ${state.flowerPot.plant!.plantName}',
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 8),

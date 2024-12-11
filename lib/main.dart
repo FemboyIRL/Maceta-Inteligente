@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maceta_inteligente/screens/SplashScreen/screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:maceta_inteligente/utilities/methods/Dio/http_dio_requests.dart';
-import 'package:maceta_inteligente/utilities/methods/firebase_methods.dart';
-import 'package:maceta_inteligente/utilities/methods/notifications_methods.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,14 +9,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final httpDioRequests = HttpDioRequests();
-  await httpDioRequests.initialize();
-
-  final notificationService = NotificationService();
-  await notificationService.initialize();
-
-  final firebaseMethods = FirebaseMethods(httpDioRequests, notificationService);
-  await firebaseMethods.initializeFCM();
 
   runApp(const GrowSmartApp());
 }

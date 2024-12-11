@@ -17,29 +17,28 @@ class FlowerpotConfigScreen extends StatelessWidget {
         List<Map<String, dynamic>> configurations = [
           {
             'label': 'Temperatura',
-            'min': state.config.temperatureMin,
-            'max': state.config.temperatureMax,
+            'min': state.temperatureMin.value,
+            'max': state.temperatureMax.value,
             'current':
-                (state.config.temperatureMax + state.config.temperatureMin) / 2,
+                (state.temperatureMax.value + state.temperatureMin.value) / 2,
           },
           {
             'label': 'Humedad',
-            'min': state.config.humidityMin,
-            'max': state.config.humidityMax,
-            'current':
-                (state.config.humidityMax + state.config.humidityMin) / 2,
+            'min': state.humidityMin.value,
+            'max': state.humidityMax.value,
+            'current': (state.humidityMax.value + state.humidityMin.value) / 2,
           },
           {
             'label': 'Luz',
-            'min': state.config.lightMin,
-            'max': state.config.lightMax,
-            'current': (state.config.lightMax + state.config.lightMin) / 2,
+            'min': state.lightMin.value,
+            'max': state.lightMax.value,
+            'current': (state.lightMax.value + state.lightMin.value) / 2,
           },
           {
             'label': 'Notificaciones',
             'min': null,
             'max': null,
-            'current': state.config.notificationsEnabled ? 1 : 0,
+            'current': state.notificationsEnabled.value ? 1 : 0,
           }
         ];
 
@@ -92,6 +91,10 @@ class FlowerpotConfigScreen extends StatelessWidget {
                 minValue: config['min'],
                 maxValue: config['max'],
                 currentValue: config['current'],
+                onMaxValueTap: (context, value, label) =>
+                    state.onValueTap(context, value, "${label}Max"),
+                onMinValueTap: (context, value, label) =>
+                    state.onValueTap(context, value, "${label}Min"),
               );
             },
           ),

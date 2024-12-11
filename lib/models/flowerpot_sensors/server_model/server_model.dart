@@ -19,7 +19,7 @@ class FlowerpotSensor {
     return FlowerpotSensor(
       id: map['id'] as int,
       humidity: double.parse(map['floor_humidity'] as String? ?? '0.0'),
-      temperature: (map['temperature'] as num?)?.toDouble() ?? 0.0,
+      temperature: double.parse(map['temperature'] as String? ?? '0.0'),
       lightLevel: (map['light_level'] as num?)?.toDouble() ?? 0.0,
       waterLevel: (map['water_level'] as num?)?.toDouble() ?? 0.0,
       registerDateTime: map['registed_at'] != null
