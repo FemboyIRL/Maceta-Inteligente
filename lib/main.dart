@@ -19,6 +19,7 @@ class GrowSmartApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'App para la gestion de GrowSmart',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(

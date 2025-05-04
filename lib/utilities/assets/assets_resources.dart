@@ -9,7 +9,7 @@ abstract class AssetsResources{
   static String greenGarden = "assets/images/green_garden.jpeg";
 
   //interfaces
-  static String brandIcon = "assets/images/logo.jpeg";
+  static String brandIcon = "assets/images/logo.png";
 
   //svg
 

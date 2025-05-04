@@ -66,16 +66,6 @@ class PresentationWizardItemWidget extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 130,
-              child: Center(
-                child: Image.asset(
-                  AssetsResources.brandIcon,
-                  height: 95,
-                  width: 95,
-                ),
-              ),
-            ),
           ],
         ),
       ],
